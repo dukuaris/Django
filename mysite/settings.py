@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    ### dash
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
+    'channels',
+    'channels_redis',
+    ### plotly
 
     # shkim
     'taggit.apps.TaggitAppConfig',
@@ -47,6 +52,9 @@ INSTALLED_APPS = [
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
     'photo.apps.PhotoConfig',
+
+    # visual
+    'visual.apps.VisualConfig',
 ]
 
 MIDDLEWARE = [
@@ -137,6 +145,19 @@ USE_L10N = True
 # USE_TZ = True
 USE_TZ = False
 
+### dash
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+ASGI_APPLICATION = 'mysite.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channel.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts':[('127.0.0.1', 6379),],
+        }
+    }
+}
+### plotly
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
@@ -146,6 +167,22 @@ STATIC_URL = '/static/'
 # shkim
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+### dash
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django_plotly_dash.finders.DashAssetFinder',
+    'django_plotly_dash.finders.DashComponentFinder'
+]
+PLOTLY_COMPONENTS = [
+    'dash_core_components',
+    'dash_html_components',
+    'dash_renderer',
+
+    'dpd_components'
+]
+### plotly
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

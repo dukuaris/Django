@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}welcome.html{% endblock %}
+
+{% load plotly_dash %}
+
+{% block content %}
+<h1>Gapminder Analysis</h1>
+    <br>
+    <div class="{% plotly_class name='SimpleExample' %}">
+    {% plotly_app name='SimpleExample' %}
+    </div>
+
+
+{% endblock %}

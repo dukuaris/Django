@@ -24,14 +24,15 @@ from mysite.views import HomeView, UserCreateView, UserCreateDoneTV
 urlpatterns = [
     path('admin/', admin.site.urls),
     # shkim
-    path('accounts/', include('django.contrib.auth.urls')), 
-    path('accounts/register/', UserCreateView.as_view(), name='register'), 
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/register/', UserCreateView.as_view(), name='register'),
     path('accounts/register/done/', UserCreateDoneTV.as_view(), name='register_done'),
 
     path('', HomeView.as_view(), name='home'),
     path('bookmark/', include('bookmark.urls')),
     path('blog/', include('blog.urls')),
     path('photo/', include('photo.urls')),
+    path('visual/', include('visual.urls')),
+    path('django_plotly_dash/', include('django_plotly_dash.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
