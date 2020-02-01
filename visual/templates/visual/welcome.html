@@ -2,11 +2,15 @@
 
 {% block title %}welcome.html{% endblock %}
 {% load static %}
-{% load plotly_dash %}
 
 {% block content %}
 <h1>Visual Analyses</h1>
     <br>
+
+    <ul>
+        <li><a href="{% url 'gapminder' %}">Gapminder</a></li>
+        <li><a href="{% url 'multipleoutputs' %}">MultipleOutputs</a></li>
+    </ul>
 
 
 {% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}multipleoutputs.html{% endblock %}
+{% load static %}
+{% load plotly_dash %}
+
+{% block content %}
+<h1>Multiple Outputs</h1>
+    <br>
+    <div class="{% plotly_class name='MultipleOutputs' %}" style="height: 100%; width: 100%">
+    {% plotly_app name='MultipleOutputs' ratio=0.80 %}
+    </div>
+
+{% endblock %}
