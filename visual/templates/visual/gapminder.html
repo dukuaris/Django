@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}gapminder.html{% endblock %}
+{% load static %}
+{% load plotly_dash %}
+
+{% block content %}
+<h1>Gapminder Analysis</h1>
+    <br>
+    <div class="{% plotly_class name='GapMinder' %}" style="height: 100%; width: 100%">
+    {% plotly_app name='GapMinder' ratio=0.80 %}
+    </div>
+
+
+{% endblock %}
