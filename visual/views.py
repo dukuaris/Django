@@ -8,3 +8,6 @@ def gapminder(requests):
 
 def multipleoutputs(requests):
     return render(requests, 'visual/multipleoutputs.html')
+
+def interactions(requests):
+    return render(requests, 'visual/interactions.html')

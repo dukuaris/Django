@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}Interactions.html{% endblock %}
+{% load static %}
+{% load plotly_dash %}
+
+{% block content %}
+<h1>Updating Graphs on Interactions</h1>
+    <br>
+    <div class="{% plotly_class name='Interactions' %}" style="height: 100%; width: 100%">
+    {% plotly_app name='Interactions' ratio=0.80 %}
+    </div>
+
+
+{% endblock %}
