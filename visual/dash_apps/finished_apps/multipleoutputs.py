@@ -18,7 +18,7 @@ def encode_image(image_file):
 app.layout = html.Div([
             dcc.RadioItems(id='wheels',
                           options=[{'label':i,'value':i} for i in df['wheels'].unique()],
-                          value='외발자전거'
+                          value=1
                           ),
             html.Div(id='wheels-output'),
             html.Hr(),
