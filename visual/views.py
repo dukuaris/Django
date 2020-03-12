@@ -11,3 +11,6 @@ def multipleoutputs(requests):
 
 def interactions(requests):
     return render(requests, 'visual/interactions.html')
+
+def stockprice(requests):
+    return render(requests, 'visual/stockprice.html')
