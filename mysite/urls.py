@@ -33,6 +33,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('photo/', include('photo.urls')),
     path('visual/', include('visual.urls')),
+    path('crawl/', include('crawl.urls')),
     path('django_plotly_dash/', include('django_plotly_dash.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

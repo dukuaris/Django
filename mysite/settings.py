@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'bookmark.apps.BookmarkConfig',
     'blog.apps.BlogConfig',
     'photo.apps.PhotoConfig',
+    'crawl.apps.CrawlConfig',
 
     # visual
     'visual.apps.VisualConfig',

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}product_search.html{% endblock %}
+
+{% block content %}
+
+    <h1>상품 검색</h1>
+    <br>
+
+    <form class="form-inline" action="." method="post"> {% csrf_token %}
+        <div class="form-group">
+            {{ form.category_number|add_label_class:"font-weight-bold" }}
+            {{ form.category_number|add_class:"form-control mx-sm-3"|attr:"autofocus" }}
+            <br />
+            {{ form.product_number|add_label_class:"font-weight-bold" }}
+            {{ form.product_number|add_class:"form-control mx-sm-3"|attr:"autofocus" }}
+            <input type="submit" value="Submit" class="btn btn-primary btn-sm"/>
+        </div>
+    </form>
+
+    <br/><br/>
+
+
+    <h1>{{ categories }}</h1>
+    <br/><br/>
+    <h1>{{ products }}</h1>
+    {# {% if object_list %}
+        {% for product in object_list %}
+        <h2><a href='{{ product.get_absolute_url }}'>{{ product.title }}</a></h2>
+        {{ product.modify_dt|date:"N d, Y" }}
+        <p>{{ product.description }}</p>
+        {% endfor %}
+
+    {% elif search_term %}
+    <b><i>Search Word({{ search_term }}) Not Found !</i></b>
+    {% endif %} #}
+
+{% endblock %}
