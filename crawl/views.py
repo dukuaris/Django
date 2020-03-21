@@ -52,6 +52,7 @@ class CrawlFormView(LoginRequiredMixin, FormView):
             prod.price = prods.iloc[i]['price']
             prod.sat_count = prods.iloc[i]['review']
             prod.score = prods.iloc[i]['score']
+            prod.image = prods.iloc[i]['image']
             prod.save()
 
         context = {}

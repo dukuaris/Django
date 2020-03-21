@@ -11,11 +11,17 @@ import pandas as pd
 import xlwt
 import random
 import os
+import shutil
+import requests
+from datetime import timedelta, timezone, datetime
 
 def crawlproduct(sec, cnt):
 
     query_url='https://www.amazon.com/bestsellers?ld=NSGoogle'
 
+    now = time.localtime()
+    scrape_time = '%04d-%02d-%02d-%02d-%02d-%02d' % (now.tm_year, now.tm_mon, now.tm_mday, now.tm_hour, now.tm_min, now.tm_sec)
+    os.mkdir('media'+'/'+scrape_time)
 
     if sec == '1' :
           sec_name='Amazon Devices and Accessories'
@@ -105,7 +111,11 @@ def crawlproduct(sec, cnt):
     else :
           print("    요청하신 데이터를 수집하고 있으니 잠시만 기다려 주세요~~")
 
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    options.add_argument('headless')
+    options.add_argument('disable=gpu')
+
+    driver = webdriver.Chrome(options=options)
 
     driver.get(query_url)
     time.sleep(5)
@@ -199,12 +209,12 @@ def crawlproduct(sec, cnt):
     # 학습목표 2 : 해당 카테고리의 데이터를 수집합니다.
     #Step 4. 화면을 스크롤해서 아래로 이동한 후 요청된 데이터를 수집합니다.
 
-    # def scroll_down(driver):
-    #
-    #       driver.execute_script("window.scrollBy(0,9300);")
-    #       time.sleep(1)
-    #
-    # scroll_down(driver)
+    def scroll_down(driver):
+
+          driver.execute_script("window.scrollBy(0,9300);")
+          time.sleep(1)
+
+    scroll_down(driver)
 
     bmp_map = dict.fromkeys(range(0x10000, sys.maxunicode + 1), 0xfffd)
 
@@ -214,6 +224,7 @@ def crawlproduct(sec, cnt):
     reple_result = soup.select('#zg-center-div > #zg-ordered-list')
     slist = reple_result[0].find_all('li')
 
+    session = requests.Session()
 
     if cnt < 51 :
 
@@ -223,6 +234,7 @@ def crawlproduct(sec, cnt):
         score2=[]
         sat_count2=[]
         store2=[]
+        image2=[]
 
         count = 0
 
@@ -281,6 +293,29 @@ def crawlproduct(sec, cnt):
 
             score2.append(score)
 
+            #상품이미지 다운로드
+            media = '/Users/dukuaris/VENV/Django/media/{}'.format(scrape_time)
+            try:
+                image_source = li.find('div','a-section a-spacing-small').find('img')['src']
+                local_filename = str(count) + ".jpg"
+                r = session.get(image_source, stream=True, verify=False)
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        f.write(chunk)
+                current_image_absolute_path = os.path.abspath(local_filename)
+                shutil.move(current_image_absolute_path, media)
+
+            except IndexError :
+                noimage = 'https://cdn4.iconfinder.com/data/icons/basics-set-2/100/Question-512.png'
+                local_filename = str(count) + ".jpg"
+                r = session.get(image_source, stream=True, verify=False)
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        f.write(chunk)
+                current_image_absolute_path = os.path.abspath(local_filename)
+                shutil.move(current_image_absolute_path, media)
+
+            image2.append(scrape_time+'/'+local_filename)
 
             if count == cnt :
                 break
@@ -295,6 +330,7 @@ def crawlproduct(sec, cnt):
         score2=[]
         sat_count2=[]
         store2=[]
+        image2=[]
 
         for li in slist:
 
@@ -347,6 +383,30 @@ def crawlproduct(sec, cnt):
                 sat_count2.append(0)
 
             score2.append(score)
+
+            #상품이미지 다운로드
+            media = '/Users/dukuaris/VENV/Django/media/{}'.format(scrape_time)
+            try:
+                image_source = li.find('div','a-section a-spacing-small').find('img')['src']
+                local_filename = str(count) + ".jpg"
+                r = session.get(image_source, stream=True, verify=False)
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        f.write(chunk)
+                current_image_absolute_path = os.path.abspath(local_filename)
+                shutil.move(current_image_absolute_path, media)
+
+            except IndexError :
+                noimage = 'https://cdn4.iconfinder.com/data/icons/basics-set-2/100/Question-512.png'
+                local_filename = str(count) + ".jpg"
+                r = session.get(image_source, stream=True, verify=False)
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        f.write(chunk)
+                current_image_absolute_path = os.path.abspath(local_filename)
+                shutil.move(current_image_absolute_path, media)
+
+            image2.append(scrape_time+'/'+local_filename)
 
 
         # 1 페이지 정보 추출 후 2 페이지로 넘어가기
@@ -413,6 +473,30 @@ def crawlproduct(sec, cnt):
 
             score2.append(score)
 
+            #상품이미지 다운로드
+            media = '/Users/dukuaris/VENV/Django/media/{}'.format(scrape_time)
+            try:
+                image_source = li.find('div','a-section a-spacing-small').find('img')['src']
+                local_filename = str(count) + ".jpg"
+                r = session.get(image_source, stream=True, verify=False)
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        f.write(chunk)
+                current_image_absolute_path = os.path.abspath(local_filename)
+                shutil.move(current_image_absolute_path, media)
+
+            except IndexError :
+                noimage = 'https://cdn4.iconfinder.com/data/icons/basics-set-2/100/Question-512.png'
+                local_filename = str(count) + ".jpg"
+                r = session.get(image_source, stream=True, verify=False)
+                with open(local_filename, 'wb') as f:
+                    for chunk in r.iter_content(chunk_size=1024):
+                        f.write(chunk)
+                current_image_absolute_path = os.path.abspath(local_filename)
+                shutil.move(current_image_absolute_path, media)
+
+            image2.append(scrape_time+'/'+local_filename)
+
 
             if count == cnt :
                 break
@@ -423,6 +507,7 @@ def crawlproduct(sec, cnt):
     amazon_best_seller['price']=pd.Series(price2)
     amazon_best_seller['review']=pd.Series(sat_count2)
     amazon_best_seller['score']=pd.Series(score2)
+    amazon_best_seller['image']=pd.Series(image2)
 
     driver.close()
 
