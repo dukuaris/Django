@@ -35,7 +35,7 @@ django-storages==1.7.2
 django-taggit==1.1.0
 django-taggit-templatetags2==1.6.1
 django-widget-tweaks==1.4.5
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 docutils==0.15.2
 dpd-components==0.1.0
 Flask==1.1.1
